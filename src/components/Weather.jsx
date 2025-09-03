@@ -8,6 +8,7 @@ import rain_icon from '../assets/rain.png'
 import snow_icon from '../assets/search.png'
 import wind_icon from '../assets/wind.png'
 import humidity_icon from '../assets/humidity.png'
+import { toast } from 'react-toastify'
 
 const Weather = () => {
 
@@ -35,7 +36,8 @@ const Weather = () => {
   }
   const search = async (city) => {
     if(city == "") {
-      alert("Please enter a city name")
+      toast.warn("Please enter a city name")
+      // alert("Please enter a city name")
       return
     }
     try {
@@ -54,11 +56,12 @@ const Weather = () => {
           icon: icon
         })
       } else {
-        setWeatherData(false)
-        setErrorMsg(data.message)
+        // setWeatherData(false)
+        toast.error(data.message)
       }
     } catch (error) {
       setWeatherData(false)
+      setErrorMsg("Something went wrong!")
       console.error("Error fetching weather data:", error);
     }
   }
