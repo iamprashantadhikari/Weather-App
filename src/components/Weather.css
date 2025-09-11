@@ -44,24 +44,44 @@
     color: #fff;
 }
 
-.weather-data{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    margin-top: 40px;
-    color: #fff;
+.weather-data {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 40px;
+  color: #fff;
+  gap: 20px;
 }
-.weather-data .col{
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    font-size: 22px;
+
+.weather-data .col {
+  flex: 1;
+  max-width: 180px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  transition: transform 0.2s ease;
 }
-.weather-data .col span{
-    display: block;
-    font-size: 16px;
+
+.weather-data .col:hover {
+  transform: translateY(-4px);
 }
-.weather-data .col img{
-    width: 26px;
-    margin-top: 10px;
+
+.weather-data .col img {
+  width: 40px;
+  margin-bottom: 10px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
 }
+
+.weather-data .col p {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+.weather-data .col span {
+  font-size: 14px;
+  opacity: 0.8;
+}
+

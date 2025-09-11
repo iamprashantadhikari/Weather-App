@@ -45,7 +45,7 @@ const Weather = () => {
     
       const response = await fetch(url)
       const data = await response.json()
-      console.log(data);
+      // console.log(data);
       if(data.cod === 200) {
         const icon = allIcons[data.weather[0].icon] || clear_icon
         setWeatherData({
@@ -66,8 +66,44 @@ const Weather = () => {
     }
   }
 
+  const initialWeather = () => {
+    if("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const {latitude, longitude} = position.coords;
+
+          const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${import.meta.env.VITE_APP_ID}&units=metric`;
+
+          try {
+            const res = await fetch(url);
+            const data = await res.json();
+            // console.log(data)
+            if(data.cod === 200) {
+              const icon = allIcons[data.weather[0].icon] || clear_icon
+              setWeatherData({
+                humidity: data.main.humidity,
+                wind: data.wind.speed,
+                temp: Math.floor(data.main.temp),
+                location: data.name,
+                icon: icon
+              })
+            }  else {
+              toast.error(data.message)
+            }
+          } catch (error) {
+            setErrorMsg("Something went wrong!")
+            console.error("Error fetching weather data:", error);
+          }
+        }
+      )
+    } else {
+      setErrorMsg("Geolocation is not supported by this browser")
+    }
+  }
+
   useEffect(() => {
-    search('Kathmandu');
+    initialWeather();
+    // search('Kathmandu');
   }, [])
 
   return (
